@@ -29,7 +29,6 @@ export default class Paddle{
     }
 
     update(deltatime){
-        if(!deltatime) return;
         this.position.x += this.speed;
 
         if(this.position.x < 0) this.position.x = 0;
