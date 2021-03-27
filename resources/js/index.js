@@ -1,4 +1,5 @@
 import Paddle from './components/paddle';
+import InputHandler from './components/input';
 
 let canvas = document.getElementById("gameScreen");
 let ctx = canvas.getContext("2d");
@@ -9,6 +10,7 @@ const GAME_HEIGHT = 600;
 
 
 let paddle = new Paddle(GAME_WIDTH,GAME_HEIGHT);
+new InputHandler();
 
 paddle.draw(ctx);
 
