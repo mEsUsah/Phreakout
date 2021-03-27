@@ -14,8 +14,13 @@ export default class Paddle{
     moveLeft(){
         this.speed = -this.maxSpeed;
     }
+
     moveRight(){
         this.speed = this.maxSpeed;
+    }
+
+    stop(){
+        this.speed = 0;
     }
 
     draw(ctx){
@@ -25,7 +30,6 @@ export default class Paddle{
 
     update(deltatime){
         if(!deltatime) return;
-        this.position.x += 5 / deltatime;
         this.position.x += this.speed;
 
         if(this.position.x < 0) this.position.x = 0;
