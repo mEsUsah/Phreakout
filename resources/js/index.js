@@ -11,7 +11,7 @@ const GAME_HEIGHT = 600;
 
 
 let paddle = new Paddle(GAME_WIDTH,GAME_HEIGHT);
-let ball = new Ball();
+let ball = new Ball(GAME_WIDTH,GAME_HEIGHT);
 
 new InputHandler(paddle);
 
@@ -30,6 +30,7 @@ function gameLoop(timestamp){
     paddle.update(deltatime);
     paddle.draw(ctx);
 
+    ball.update(deltatime);
     ball.draw(ctx);
 
     
