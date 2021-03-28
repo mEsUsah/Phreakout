@@ -21,6 +21,7 @@ export default class Game{
         this.gamestate = GAMESTATE.MENU;
         this.paddle = new Paddle(this);
         this.ball = new Ball(this);
+        this.bricks = [];
         this.lives = 3;
 
         new InputHandler(this.paddle, this);
@@ -29,12 +30,11 @@ export default class Game{
     start(){
         if(this.gamestate !== GAMESTATE.MENU) return;
 
-        let bricks = buildLevel(this, level1);
+        this.bricks = buildLevel(this, level1);
 
         this.gameObjects = [
             this.ball,
             this.paddle,
-            ...bricks
         ]
         this.gamestate = GAMESTATE.RUNNING;
     }
@@ -46,12 +46,17 @@ export default class Game{
             || this.gamestate === GAMESTATE.GAMEOVER
         ) return;
 
-        this.gameObjects.forEach(object => object.update(deltatime));
-        this.gameObjects = this.gameObjects.filter(object => !object.markedForDeletion);
+        if(this.bricks.length === 0){
+            console.log("new level");
+        }
+
+
+        [...this.gameObjects, ...this.bricks].forEach(object => object.update(deltatime));
+        this.bricks = this.bricks.filter(brick => !brick.markedForDeletion);
     }
 
     draw(ctx){
-        this.gameObjects.forEach(object => object.draw(ctx));
+        [...this.gameObjects, ...this.bricks].forEach(object => object.draw(ctx));
 
         // PAUSE SCREEN
         if(this.gamestate == GAMESTATE.PAUSED){
