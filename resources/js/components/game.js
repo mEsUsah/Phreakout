@@ -2,7 +2,7 @@ import Paddle from './paddle';
 import InputHandler from './input';
 import Ball from './ball';
 import Brick from './brick';
-import {buildLevel, level1, level2} from './levels';
+import {buildLevel, level0, level1, level2} from './levels';
 
 const GAMESTATE = {
     PAUSED: 0,
@@ -11,6 +11,7 @@ const GAMESTATE = {
     NEWLEVEL: 3,
     GAMEOVER: 4,
 }
+
 
 
 export default class Game{
@@ -24,6 +25,7 @@ export default class Game{
         this.ball = new Ball(this);
         this.bricks = [];
         this.lives = 3;
+        this.score = 0;
 
         this.levels = [level1, level2];
         this.currentLevel = 0;
@@ -55,8 +57,12 @@ export default class Game{
 
         if(this.bricks.length === 0){
             this.currentLevel++;
-            this.gamestate = GAMESTATE.NEWLEVEL;
-            this.start();
+            if(this.currentLevel > this.levels.length-1){
+                this.gamestate = GAMESTATE.GAMEOVER;
+            } else{
+                this.gamestate = GAMESTATE.NEWLEVEL;
+                this.start();
+            }
 
         }
 
@@ -67,6 +73,13 @@ export default class Game{
 
     draw(ctx){
         [...this.gameObjects, ...this.bricks].forEach(object => object.draw(ctx));
+        if(this.gamestate == GAMESTATE.RUNNING){
+
+            ctx.font = "20px Arial";
+            ctx.fillStyle="black";
+            ctx.textAlign = "left";
+            ctx.fillText("Score: " + this.score, 20, this.gameHeight-20);
+        }
 
         // PAUSE SCREEN
         if(this.gamestate == GAMESTATE.PAUSED){
@@ -102,6 +115,7 @@ export default class Game{
             ctx.fillStyle="white";
             ctx.textAlign = "center";
             ctx.fillText("Game Over", this.gameWidth/2, this.gameHeight/2);
+            ctx.fillText("Score: " + this.score, this.gameWidth/2, this.gameHeight/3);
         }
     }
 

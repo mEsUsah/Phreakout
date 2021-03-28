@@ -9,7 +9,7 @@ export default class Brick {
 
         this.position = position;
         this.width = 80;
-        this.height = 60;
+        this.height = 30;
 
         this.markedForDeletion = false;
     }
@@ -17,8 +17,6 @@ export default class Brick {
     update(deltatime, lastTime){
         let collision = detectCollision(this.game.ball, this);
         if(collision){
-            console.log(this.game.ball.lastDirectionChange);
-            console.log(lastTime);
             switch(collision){
                 case "top":
                     if(lastTime > this.game.ball.lastDirectionChange + 1){
@@ -49,6 +47,7 @@ export default class Brick {
                     this.markedForDeletion = true;
                     break;
             }
+            this.game.score++;
         }
     }
 
