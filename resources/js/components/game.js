@@ -21,7 +21,7 @@ export default class Game{
         this.gamestate = GAMESTATE.MENU;
         this.paddle = new Paddle(this);
         this.ball = new Ball(this);
-        this.lives = 1;
+        this.lives = 3;
 
         new InputHandler(this.paddle, this);
     }

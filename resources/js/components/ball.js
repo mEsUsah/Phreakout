@@ -6,15 +6,20 @@ export default class Ball {
 
         this.game = game;
         this.image = document.getElementById("img_ball");
+        
+        this.size = 20;
+        this.reset();
+    }
+
+    reset(){
         this.speed = {
             x: 4,
             y: -4,
         };
         this.position = {
-            x: game.gameWidth/2,
-            y: game.gameHeight - 100,
+            x: this.game.gameWidth/2,
+            y: this.game.gameHeight - 100,
         }
-        this.size = 20;
     }
 
     draw(ctx){
@@ -37,6 +42,7 @@ export default class Ball {
         // Hit bootm of the screen - loss of life.
         if(this.position.y + this.size > this.gameHeight ){
             this.game.lives--;
+            this.reset();
         }
 
         if(detectCollision(this, this.game.paddle)){
