@@ -106,6 +106,11 @@ export default class Game{
             ctx.fillStyle="white";
             ctx.textAlign = "center";
             ctx.fillText("Press SPACEBAR to start", this.gameWidth/2, this.gameHeight/2);
+            ctx.fillStyle="#FF5000";
+            ctx.font = "80px Arial";
+            ctx.fillText("PHREAKOUT!", this.gameWidth/2, this.gameHeight/3);
+            ctx.font = "40px Arial";
+            ctx.fillText("A game by Stanley Skarshaug", this.gameWidth/2, (this.gameHeight/3)*2);
         }
         
         // Game Over 
