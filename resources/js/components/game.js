@@ -71,9 +71,10 @@ export default class Game{
 
         }
 
-
-        [...this.gameObjects, ...this.bricks].forEach(object => object.update(deltatime, lastTime));
-        this.bricks = this.bricks.filter(brick => !brick.markedForDeletion);
+        if(this.gamestate == GAMESTATE.RUNNING){
+            [...this.gameObjects, ...this.bricks].forEach(object => object.update(deltatime, lastTime));
+            this.bricks = this.bricks.filter(brick => !brick.markedForDeletion);
+        }
     }
 
     draw(ctx){
@@ -115,7 +116,7 @@ export default class Game{
             ctx.font = "80px Arial";
             ctx.fillText("PHREAKOUT!", this.gameWidth/2, this.gameHeight/3);
             ctx.font = "40px Arial";
-            ctx.fillText("A game by Stanley Skarshaug", this.gameWidth/2, (this.gameHeight/3)*2);
+            ctx.fillText("A clone by Stanley Skarshaug", this.gameWidth/2, (this.gameHeight/3)*2);
         }
         
         // Game Over 
