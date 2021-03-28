@@ -9,6 +9,7 @@ export default class Paddle{
         }
         this.maxSpeed = 7;
         this.speed = 0;
+        this.color = "#f00";
     }
 
     moveLeft(){
@@ -24,7 +25,7 @@ export default class Paddle{
     }
 
     draw(ctx){
-        ctx.fillStyle = "#0ff";
+        ctx.fillStyle = this.color;
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 
