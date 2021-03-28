@@ -8,11 +8,11 @@ export default class Ball {
         this.image = document.getElementById("img_ball");
         this.speed = {
             x: 4,
-            y: 4,
+            y: -4,
         };
         this.position = {
-            x: 10,
-            y: 10,
+            x: game.gameWidth/2,
+            y: game.gameHeight - 100,
         }
         this.size = 20;
     }
