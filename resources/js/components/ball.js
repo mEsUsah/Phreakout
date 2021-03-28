@@ -30,9 +30,13 @@ export default class Ball {
             this.speed.x = -this.speed.x;
         }
 
-        // Hit wall on the bottom or top of the screen
-        if(this.position.y + this.size > this.gameHeight || this.position.y < 0){
+        // Hit wall on top of the screen
+        if(this.position.y < 0){
             this.speed.y = -this.speed.y;
+        }
+        // Hit bootm of the screen - loss of life.
+        if(this.position.y + this.size > this.gameHeight ){
+            this.game.lives--;
         }
 
         if(detectCollision(this, this.game.paddle)){
