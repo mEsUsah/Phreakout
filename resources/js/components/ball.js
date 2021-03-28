@@ -7,18 +7,21 @@ export default class Ball {
         this.game = game;
         this.image = document.getElementById("img_ball");
         
+        this.direction = {
+            x: true,
+            y: true,
+        }
+
+        this.speed = 2;
+
         this.size = 20;
         this.reset();
     }
 
     reset(){
-        this.speed = {
-            x: 4,
-            y: -4,
-        };
         this.position = {
-            x: this.game.gameWidth/2,
-            y: this.game.gameHeight - 100,
+            x: 30,
+            y: 10,
         }
     }
 
@@ -27,17 +30,32 @@ export default class Ball {
     }
 
     update(deltatime){
-        this.position.x += this.speed.x; 
-        this.position.y += this.speed.y; 
+        if (this.direction.y){
+            this.position.y = this.position.y - this.speed;
+        } else {
+            this.position.y = this.position.y + this.speed
+        }
+
+        if (this.direction.x){
+            this.position.x = this.position.x - this.speed;
+        } else {
+            this.position.x = this.position.x + this.speed
+        }
+
+
 
         // Hit wall on left or right of the screen
         if(this.position.x + this.size > this.gameWidth || this.position.x < 0){
-            this.speed.x = -this.speed.x;
+            if(this.direction.x){
+                this.direction.x = false;
+            } else {
+                this.direction.x = true;
+            }
         }
 
         // Hit wall on top of the screen
         if(this.position.y < 0){
-            this.speed.y = -this.speed.y;
+            this.direction.y = false;
         }
         // Hit bootm of the screen - loss of life.
         if(this.position.y + this.size > this.gameHeight ){
@@ -46,8 +64,7 @@ export default class Ball {
         }
 
         if(detectCollision(this, this.game.paddle)){
-            this.speed.y = -this.speed.y;
-            this.position.y = this.game.paddle.position.y - this.size;
+            this.direction.y = true;
         }
     }
 }

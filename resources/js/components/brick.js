@@ -19,23 +19,27 @@ export default class Brick {
 
     update(){
         let collision = detectCollision(this.game.ball, this);
-        switch(collision){
-            case "top":
-                this.game.ball.speed.y = -this.game.ball.speed.y;
-                this.markedForDeletion = true;
-                break;
-            case "bottom":
-                this.game.ball.speed.y = -this.game.ball.speed.y;
-                this.markedForDeletion = true;
-                break;
-            case "left":
-                this.game.ball.speed.x = -this.game.ball.speed.x;
-                this.markedForDeletion = true;
-                break;
-            case "right":
-                this.game.ball.speed.x = -this.game.ball.speed.x;
-                this.markedForDeletion = true;
-                break;
+        if(collision){
+            console.log(this.game.ball.direction);
+            switch(collision){
+                case "top":
+                    console.log(this.game.ball);
+                    this.game.ball.direction.y = true;
+                    this.markedForDeletion = true;
+                    break;
+                case "bottom":
+                    this.game.ball.direction.y = false;
+                    this.markedForDeletion = true;
+                    break;
+                case "left":
+                    this.game.ball.direction.x = true;
+                    this.markedForDeletion = true;
+                    break;
+                case "right":
+                    this.game.ball.direction.x = false;
+                    this.markedForDeletion = true;
+                    break;
+            }
         }
     }
 
