@@ -20,13 +20,13 @@ export function detectCollision(ballObject, gameObject){
         && ball.right >= object.left
         && ball.left <= object.right
     ){
+        let returnString = "";
         if(    ball.right   >=  object.left 
             && ball.left    <   object.left 
             && (ball.bottom >=  object.top 
                 || ball.top <= object.bottom)
         ){
-            console.log("left");
-            return("left");
+            returnString = "left";
         }
         
         else if(ball.left       <=  object.right
@@ -34,8 +34,7 @@ export function detectCollision(ballObject, gameObject){
             &&  (ball.bottom    >=  object.top 
                 ||  ball.top    <=  object.bottom)
         ){
-            console.log("right");
-            return("right");
+            returnString = "right";
         }
 
         else if(ball.bottom     >=  object.top 
@@ -43,8 +42,7 @@ export function detectCollision(ballObject, gameObject){
             &&  (ball.right     >=  object.left 
                 ||  ball.left   <=  object.right)
         ){
-            console.log("top");
-            return("top");
+            returnString = "top";
         }
 
         else if(ball.top        <=  object.bottom 
@@ -52,9 +50,9 @@ export function detectCollision(ballObject, gameObject){
             &&  (ball.right     >=  object.left 
                 ||  ball.left   <=  object.right)
         ){
-            console.log("bottom");
-            return("bottom");
-        } 
+            returnString = "bottom";
+        }
+        return returnString; 
     } else {
         return false;
     }
