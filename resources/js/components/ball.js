@@ -1,16 +1,9 @@
 import { detectCollision} from './collisionDetection';
 export default class Ball {
     constructor(game){
-        this.gameWidth = game.gameWidth;
-        this.gameHeight = game.gameHeight;
-
         this.game = game;
         this.image = document.getElementById("img_ball");
-        
-        this.direction = {
-            x: false, 
-            y: true, 
-        }
+         
         this.lastDirectionChange = 0;
 
         this.speed = 4;
@@ -21,8 +14,12 @@ export default class Ball {
 
     reset(){
         this.position = {
-            x: 90,
-            y: 10,
+            x: 10,
+            y: this.game.gameHeight -40,
+        }
+        this.direction = {
+            x: false, 
+            y: false, 
         }
     }
 
@@ -46,7 +43,7 @@ export default class Ball {
 
 
         // Hit wall on left or right of the screen
-        if(this.position.x + this.size > this.gameWidth || this.position.x < 0){
+        if(this.position.x + this.size > this.game.gameWidth || this.position.x < 0){
             if(this.direction.x){
                 this.direction.x = false;
             } else {
@@ -59,7 +56,7 @@ export default class Ball {
             this.direction.y = true;
         }
         // Hit bootm of the screen - loss of life.
-        if(this.position.y + this.size > this.gameHeight ){
+        if(this.position.y + this.size > this.game.gameHeight ){
             this.game.lives--;
             this.reset();
         }
