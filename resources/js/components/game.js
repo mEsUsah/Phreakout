@@ -36,7 +36,13 @@ export default class Game{
     start(){
         if(this.gamestate !== GAMESTATE.MENU 
             && this.gamestate !== GAMESTATE.NEWLEVEL
+            && this.gamestate !== GAMESTATE.GAMEOVER
         ) return;
+
+        if(this.gamestate == GAMESTATE.GAMEOVER){
+            this.lives = 3;
+            this.score = 0;
+        }
 
         this.bricks = buildLevel(this, this.levels[this.currentLevel]);
         this.ball.reset();
@@ -52,7 +58,6 @@ export default class Game{
         if(this.lives === 0) this.gamestate = GAMESTATE.GAMEOVER;
         if(this.gamestate === GAMESTATE.PAUSED 
             || this.gamestate === GAMESTATE.MENU
-            || this.gamestate === GAMESTATE.GAMEOVER
         ) return;
 
         if(this.bricks.length === 0){
@@ -125,6 +130,7 @@ export default class Game{
             ctx.fillText("Game Over", this.gameWidth/2, this.gameHeight/2);
             ctx.font = "30px Arial";
             ctx.fillText("Score: " + this.score, this.gameWidth/2, this.gameHeight/3);
+            ctx.fillText("Press SPACEBAR to retry", this.gameWidth/2, (this.gameHeight/3)*2);
         }
     }
 
