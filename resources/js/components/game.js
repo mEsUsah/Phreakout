@@ -2,13 +2,14 @@ import Paddle from './paddle';
 import InputHandler from './input';
 import Ball from './ball';
 import Brick from './brick';
-import {buildLevel, level1} from './levels';
+import {buildLevel, level1, level2} from './levels';
 
 const GAMESTATE = {
     PAUSED: 0,
     RUNNING: 1,
     MENU: 2,
-    GAMEOVER: 3,
+    NEWLEVEL: 3,
+    GAMEOVER: 4,
 }
 
 
@@ -24,13 +25,19 @@ export default class Game{
         this.bricks = [];
         this.lives = 3;
 
+        this.levels = [level1, level2];
+        this.currentLevel = 0;
+
         new InputHandler(this.paddle, this);
     }
 
     start(){
-        if(this.gamestate !== GAMESTATE.MENU) return;
+        if(this.gamestate !== GAMESTATE.MENU 
+            && this.gamestate !== GAMESTATE.NEWLEVEL
+        ) return;
 
-        this.bricks = buildLevel(this, level1);
+        this.bricks = buildLevel(this, this.levels[this.currentLevel]);
+        this.ball.reset();
 
         this.gameObjects = [
             this.ball,
@@ -47,7 +54,10 @@ export default class Game{
         ) return;
 
         if(this.bricks.length === 0){
-            console.log("new level");
+            this.currentLevel++;
+            this.gamestate = GAMESTATE.NEWLEVEL;
+            this.start();
+
         }
 
 
