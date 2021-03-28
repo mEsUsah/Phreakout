@@ -75,10 +75,13 @@ export default class Game{
         [...this.gameObjects, ...this.bricks].forEach(object => object.draw(ctx));
         if(this.gamestate == GAMESTATE.RUNNING){
 
-            ctx.font = "20px Arial";
+            ctx.font = "10px Arial";
             ctx.fillStyle="black";
             ctx.textAlign = "left";
             ctx.fillText("Score: " + this.score, 20, this.gameHeight-20);
+            
+            ctx.textAlign = "right";
+            ctx.fillText(this.lives + " Lives", this.gameWidth - 20, this.gameHeight-20);
         }
 
         // PAUSE SCREEN
@@ -111,10 +114,11 @@ export default class Game{
             ctx.fillStyle = "rgba(0,0,0,1)";
             ctx.fill();
 
-            ctx.font = "30px Arial";
+            ctx.font = "60px Arial";
             ctx.fillStyle="white";
             ctx.textAlign = "center";
             ctx.fillText("Game Over", this.gameWidth/2, this.gameHeight/2);
+            ctx.font = "30px Arial";
             ctx.fillText("Score: " + this.score, this.gameWidth/2, this.gameHeight/3);
         }
     }
