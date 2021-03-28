@@ -8,11 +8,12 @@ export default class Ball {
         this.image = document.getElementById("img_ball");
         
         this.direction = {
-            x: true,
-            y: true,
+            x: false, 
+            y: true, 
         }
+        this.lastDirectionChange = 0;
 
-        this.speed = 2;
+        this.speed = 4;
 
         this.size = 20;
         this.reset();
@@ -20,20 +21,20 @@ export default class Ball {
 
     reset(){
         this.position = {
-            x: 30,
+            x: 90,
             y: 10,
         }
     }
 
     draw(ctx){
-        ctx.drawImage(this.image, this.position.x, this.position.y, this.size, this.size);
+        ctx.drawImage(this.image, this. position.x, this.position.y, this.size, this.size);
     }
 
     update(deltatime){
         if (this.direction.y){
-            this.position.y = this.position.y - this.speed;
+            this.position.y = this.position.y + this.speed;
         } else {
-            this.position.y = this.position.y + this.speed
+            this.position.y = this.position.y - this.speed
         }
 
         if (this.direction.x){
@@ -55,7 +56,7 @@ export default class Ball {
 
         // Hit wall on top of the screen
         if(this.position.y < 0){
-            this.direction.y = false;
+            this.direction.y = true;
         }
         // Hit bootm of the screen - loss of life.
         if(this.position.y + this.size > this.gameHeight ){
@@ -64,7 +65,7 @@ export default class Ball {
         }
 
         if(detectCollision(this, this.game.paddle)){
-            this.direction.y = true;
+            this.direction.y = false;
         }
     }
 }

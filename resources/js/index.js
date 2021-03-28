@@ -15,12 +15,12 @@ let lastTime = 0;
 
 //Game - Main loop
 function gameLoop(timestamp){
-    let deltatime = timestamp - lastTime;
+    let deltaTime = timestamp - lastTime;
     lastTime = timestamp
 
     ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT);
     
-    game.update(deltatime);
+    game.update(deltaTime, lastTime);
     game.draw(ctx);
 
     
