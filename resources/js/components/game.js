@@ -42,6 +42,7 @@ export default class Game{
         if(this.gamestate == GAMESTATE.GAMEOVER){
             this.lives = 3;
             this.score = 0;
+            this.currentLevel = 0;
         }
 
         this.bricks = buildLevel(this, this.levels[this.currentLevel]);
