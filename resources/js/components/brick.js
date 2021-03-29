@@ -4,6 +4,8 @@ export default class Brick {
         this.gameWidth = game.gameWidth;
         this.gameHeight = game.gameHeight;
         this.game = game;
+        this.health = 0;
+        this.breakable = true
         
         this.type = type;
         switch(type){
@@ -19,8 +21,11 @@ export default class Brick {
                 this.image = document.getElementById("img_brick--red");
                 this.health = 3;
                 break
+            case 9:
+                this.image = document.getElementById("img_brick--gray");
+                this.breakable = false;
+                break
         }
-
 
         this.position = position;
         this.width = 80;
@@ -30,17 +35,18 @@ export default class Brick {
     }
 
     updateHealth(hp){
-        this.health += hp;
-        switch(this.health){
-            case 2:
-                this.image = document.getElementById("img_brick--yellow");
-                break;
-            case 1:
-                this.image = document.getElementById("img_brick--green");
-                break;
-        }
-        console.log(this.health);
-        if(this.health <= 0) this.markedForDeletion = true;
+        if(this.breakable){
+            this.health += hp;
+            switch(this.health){
+                case 2:
+                    this.image = document.getElementById("img_brick--yellow");
+                    break;
+                case 1:
+                    this.image = document.getElementById("img_brick--green");
+                    break;
+            }
+            if(this.health <= 0) this.markedForDeletion = true;
+        } 
     }
 
     update(deltatime, lastTime){
@@ -52,28 +58,24 @@ export default class Brick {
                         this.game.ball.direction.y = false;
                         this.game.ball.lastDirectionChange = lastTime;
                     }
-                    //this.markedForDeletion = true;
                     break;
                 case "bottom":
                     if(lastTime > this.game.ball.lastDirectionChange + 1){
                         this.game.ball.direction.y = true;
                         this.game.ball.lastDirectionChange = lastTime;
                     }
-                    //this.markedForDeletion = true;
                     break;
                 case "left":
                     if(lastTime > this.game.ball.lastDirectionChange + 1){
                         this.game.ball.direction.x = true;
                         this.game.ball.lastDirectionChange = lastTime;
                     }
-                    //this.markedForDeletion = true;
                     break;
                 case "right":
                     if(lastTime > this.game.ball.lastDirectionChange + 1){
                         this.game.ball.direction.x = false;
                         this.game.ball.lastDirectionChange = lastTime;
                     }
-                    //this.markedForDeletion = true;
                     break;
             }
             this.updateHealth(-1);

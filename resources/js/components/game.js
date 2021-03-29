@@ -60,8 +60,14 @@ export default class Game{
         if(this.gamestate === GAMESTATE.PAUSED 
             || this.gamestate === GAMESTATE.MENU
         ) return;
+        
+        let destructables = 0;
+        this.bricks.forEach(brick => {
+            if(brick.breakable) destructables++;
+        });
+        console.log(destructables);
 
-        if(this.bricks.length === 0){
+        if(destructables === 0){
             this.currentLevel++;
             if(this.currentLevel > this.levels.length-1){
                 this.gamestate = GAMESTATE.GAMEOVER;
