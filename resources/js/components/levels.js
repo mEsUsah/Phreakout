@@ -5,12 +5,13 @@ export function buildLevel(game, level){
 
     level.forEach((row, rowIndex) => {
         row.forEach((brick, brickIndex) =>{
-            if(brick === 1) {
+            if(brick >= 1) {
+                let type = brick;
                 let position = {
                     x: 80*brickIndex,
                     y: 80 + 30*rowIndex,
                 }
-                bricks.push(new Brick(game, position))
+                bricks.push(new Brick(game, type, position));
             }
         });
     });
@@ -20,6 +21,10 @@ export function buildLevel(game, level){
 export const levels = [
     [
         [1,1,1,1,1,1,1,1,1,1],
+        [1,1,1,1,1,1,1,1,1,1],
+    ],[
+        [3,3,3,3,3,3,3,3,3,3],
+        [2,2,2,2,2,2,2,2,2,2],
         [1,1,1,1,1,1,1,1,1,1],
     ],[
         [0,1,1,1,1,1,1,1,1,0],
