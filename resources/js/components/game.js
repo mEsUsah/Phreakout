@@ -65,7 +65,6 @@ export default class Game{
         this.bricks.forEach(brick => {
             if(brick.breakable) destructables++;
         });
-        console.log(destructables);
 
         if(destructables === 0){
             this.currentLevel++;
